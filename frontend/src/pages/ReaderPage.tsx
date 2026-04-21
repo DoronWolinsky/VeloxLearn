@@ -97,7 +97,7 @@ function ReaderPage() {
                 <div className="flex-1 flex flex-col items-center justify-center gap-6">
                     <p className="text-xl opacity-50">You finished the text.</p>
                     <button
-                        onClick={() => navigate('/result')}
+                        onClick={() => navigate('/comprehension', { state: { text } })}
                         className="px-12 py-4 rounded-2xl text-lg font-semibold text-white bg-gradient-to-r from-[#7c3aed] to-[#a855f7] hover:opacity-90 active:scale-95 transition-all duration-150 shadow-lg shadow-[#7c3aed]/30"
                     >
                         See results
