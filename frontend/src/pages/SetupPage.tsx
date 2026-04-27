@@ -12,6 +12,8 @@ function wordCount(body: string) {
 function SetupPage() {
     const navigate = useNavigate()
     const { theme, toggleTheme } = useTheme()
+    const progress: Record<string, { score: number; total: number }> =
+        JSON.parse(localStorage.getItem('textProgress') || '{}')
     const [wpm, setWpm] = useState(200)
     const [wordsPerWindow, setWordsPerWindow] = useState(3)
     const [blurAmount, setBlurAmount] = useState(2)
@@ -115,6 +117,12 @@ function SetupPage() {
                             const count = wordCount(text.body)
                             const minutes = Math.ceil(count / wpm)
                             const isSelected = selectedText === text
+                            const entry = progress[text.title]
+                            const progressBorder = entry
+                                ? entry.score === entry.total
+                                    ? 'border-green-500'
+                                    : 'border-orange-400'
+                                : 'border-[#1a1a2e]/10 dark:border-white/10 hover:border-[#7c3aed]/40'
                             return (
                                 <button
                                     key={text.title}
@@ -123,7 +131,7 @@ function SetupPage() {
                                     className={`p-4 rounded-2xl border-2 text-left flex flex-col gap-2 transition-all duration-150 ${
                                         isSelected
                                             ? 'border-[#7c3aed] shadow-lg shadow-[#7c3aed]/20'
-                                            : 'border-[#1a1a2e]/10 dark:border-white/10 hover:border-[#7c3aed]/40'
+                                            : progressBorder
                                     }`}
                                 >
                                     <span className="font-semibold text-sm leading-snug">{text.title}</span>

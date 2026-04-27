@@ -4,7 +4,7 @@ import HomePage from './pages/HomePage'
 import SetupPage from './pages/SetupPage'
 import ReaderPage from './pages/ReaderPage'
 import ComprehensionPage from './pages/ComprehensionPage'
-// import ResultPage from './pages/ResultPage'
+import ResultPage from './pages/ResultPage'
 
 function App() {
     return (
@@ -15,7 +15,7 @@ function App() {
                     <Route path="/setup" element={<SetupPage />} />
                     <Route path="/read" element={<ReaderPage />} />
                     <Route path="/comprehension" element={<ComprehensionPage />} />
-                    {/*<Route path="/result" element={<ResultPage />} />*/}
+                    <Route path="/result" element={<ResultPage />} />
                 </Routes>
             </BrowserRouter>
         </ThemeProvider>

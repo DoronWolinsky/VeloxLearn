@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import {useEffect, useRef, useState} from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTheme } from '../context/ThemeContext'
 
@@ -13,6 +13,7 @@ interface QuestionData {
 }
 
 interface TextData {
+    title: string
     questions: QuestionData[]
     dir: 'ltr' | 'rtl'
 }
@@ -47,12 +48,8 @@ function ComprehensionPage() {
     }
 
     function handleNext() {
-        if (questionIndex + 1 >= questions.length) {
-            navigate('/result', { state: { score, total: questions.length } })
-        } else {
-            setQuestionIndex(prev => prev + 1)
-            setSelectedAnswer(null)
-        }
+        setQuestionIndex(prev => prev + 1)
+        setSelectedAnswer(null)
     }
 
     function getAnswerStyle(index: number): string {
@@ -61,6 +58,17 @@ function ComprehensionPage() {
         if (index === selectedAnswer) return 'border-red-500 bg-red-500/10 text-red-600 dark:text-red-400'
         return 'border-[#1a1a2e]/10 dark:border-white/10 opacity-30'
     }
+
+    useEffect(() => {
+        if (selectedAnswer === null) return
+        const delay = 900
+        const timer = setTimeout(() => {
+            if (questionIndex + 1 >= questions.length) {
+                navigate('/result', {state: {score, total: questions.length, textTitle: text.title}})
+            }
+        }, delay)
+        return () => clearTimeout(timer)
+    }, [selectedAnswer])
 
     const currentQuestion = questions[questionIndex]
 
@@ -95,12 +103,12 @@ function ComprehensionPage() {
                     ))}
                 </div>
 
-                {selectedAnswer !== null && (
+                {selectedAnswer !== null && questionIndex + 1 < questions.length && (
                     <button
                         onClick={handleNext}
                         className="w-full py-4 rounded-2xl text-lg font-semibold text-white bg-gradient-to-r from-[#7c3aed] to-[#a855f7] hover:opacity-90 active:scale-95 transition-all duration-150 shadow-lg shadow-[#7c3aed]/30"
                     >
-                        {questionIndex + 1 >= questions.length ? 'See results' : 'Next'}
+                        Next
                     </button>
                 )}
             </div>
