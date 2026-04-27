@@ -128,6 +128,13 @@ function SetupPage() {
                 >
                     Start Reading
                 </button>
+
+                <button
+                    onClick={() => navigate('/upload')}
+                    className="w-full py-3 rounded-2xl text-sm font-medium border border-[#1a1a2e]/20 dark:border-white/10 hover:opacity-70 transition-opacity"
+                >
+                    Upload a new text
+                </button>
             </div>
         </div>
     )

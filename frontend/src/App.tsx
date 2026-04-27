@@ -5,6 +5,7 @@ import SetupPage from './pages/SetupPage'
 import ReaderPage from './pages/ReaderPage'
 import ComprehensionPage from './pages/ComprehensionPage'
 import ResultPage from './pages/ResultPage'
+import UploadPage from './pages/UploadPage'
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
                     <Route path="/read" element={<ReaderPage />} />
                     <Route path="/comprehension" element={<ComprehensionPage />} />
                     <Route path="/result" element={<ResultPage />} />
+                    <Route path="/upload" element={<UploadPage />} />
                 </Routes>
             </BrowserRouter>
         </ThemeProvider>

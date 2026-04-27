@@ -43,10 +43,22 @@ function transformText(raw: RawText): TextFull {
     }
 }
 
+export interface UploadPayload {
+    title: string
+    body: string
+    direction: 'ltr' | 'rtl'
+    questions: {
+        body: string
+        answers: { body: string; isCorrect: boolean }[]
+    }[]
+}
+
 export const textsApi = {
     list: () => apiClient.get<{ texts: TextSummary[] }>('/texts'),
     get:  async (id: string) => {
         const data = await apiClient.get<{ text: RawText }>(`/texts/${id}`)
         return transformText(data.text)
     },
+    upload: (payload: UploadPayload, apiKey: string) =>
+        apiClient.post<{ text: RawText }>('/texts', payload, { 'x-api-key': apiKey }),
 }
