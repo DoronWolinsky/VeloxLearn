@@ -32,7 +32,13 @@ function buildData(text: TextData): QuestionData[] {
 function ComprehensionPage() {
     const navigate = useNavigate()
     const { theme, toggleTheme } = useTheme()
-    const { state } = useLocation() as { state: LocationState }
+    const { state } = useLocation() as { state: LocationState | null }
+
+    if (!state) {
+        navigate('/')
+        return null
+    }
+
     const { text } = state
     const questions = useRef(buildData(text)).current
     const [questionIndex, setQuestionIndex] = useState(0)

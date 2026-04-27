@@ -11,7 +11,14 @@ interface ResultState {
 function ResultPage() {
     const navigate = useNavigate()
     const { theme, toggleTheme } = useTheme()
-    const { score, total, textTitle } = useLocation().state as ResultState
+    const state = useLocation().state as ResultState | null
+
+    if (!state) {
+        navigate('/')
+        return null
+    }
+
+    const { score, total, textTitle } = state
 
     useEffect(() => {
         const existing = localStorage.getItem('textProgress')

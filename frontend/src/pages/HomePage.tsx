@@ -16,7 +16,7 @@ function HomePage() {
 
             <div className="flex flex-col items-center gap-6">
                 <h1 className="text-9xl font-bold bg-gradient-to-r from-[#7c3aed] to-[#a855f7] bg-clip-text text-transparent">
-                    Learn
+                    VeloxLearn
                 </h1>
                 <p className="text-lg tracking-widest text-[#1a1a2e]/50 dark:text-[#e8e8f0]/50 uppercase">
                     Read faster. Think deeper.

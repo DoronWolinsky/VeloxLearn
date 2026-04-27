@@ -62,6 +62,19 @@ function UploadPage() {
     async function handleSubmit() {
         setError(null)
         setSuccess(false)
+
+        if (!apiKey.trim()) { setError('API key is required.'); return }
+        if (!title.trim()) { setError('Title is required.'); return }
+        if (!body.trim()) { setError('Text body is required.'); return }
+        if (questions.length === 0) { setError('Add at least one question.'); return }
+        for (let i = 0; i < questions.length; i++) {
+            const q = questions[i]
+            if (!q.body.trim()) { setError(`Question ${i + 1} is missing its text.`); return }
+            for (let j = 0; j < q.answers.length; j++) {
+                if (!q.answers[j].body.trim()) { setError(`Question ${i + 1}, answer ${j + 1} is empty.`); return }
+            }
+        }
+
         localStorage.setItem('uploadApiKey', apiKey)
 
         const payload: UploadPayload = {

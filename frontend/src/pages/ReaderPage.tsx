@@ -42,7 +42,13 @@ function buildParagraphs(body: string): { paragraphs: ParagraphData[], totalWord
 function ReaderPage() {
     const navigate = useNavigate()
     const { theme, toggleTheme } = useTheme()
-    const { state } = useLocation() as { state: LocationState }
+    const { state } = useLocation() as { state: LocationState | null }
+
+    if (!state) {
+        navigate('/')
+        return null
+    }
+
     const { text, wpm, wordsPerWindow, blurAmount } = state
 
     const { paragraphs, totalWords } = useRef(buildParagraphs(text.body)).current
