@@ -27,7 +27,7 @@ export async function handleListTexts(req: Request, res: Response, next: NextFun
 
 export async function handleGetText(req: Request, res: Response, next: NextFunction) {
     try {
-        const text = await getTextById(req.params.id)
+        const text = await getTextById(req.params.id as string)
         if (!text) {
             res.status(404).json({ error: 'Text not found' })
             return
